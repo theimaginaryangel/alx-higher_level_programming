@@ -1,9 +1,10 @@
 #!/usr/bin/python3
-"""A module for working with squares.
+"""
+This module defines a Square class
 """
 
 
 class Square:
-    """Represents a 2D Polygon with 4 equal and perpendicular sides.
+    """This class is a squeleton for Square
     """
     pass

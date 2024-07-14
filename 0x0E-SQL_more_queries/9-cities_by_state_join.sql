@@ -1,6 +1,4 @@
--- Prints and joins records from two tables with a matching field
+-- MySQL script that list all cities
 SELECT cities.id, cities.name, states.name
-    FROM cities
-    INNER JOIN states
-        ON cities.state_id = states.id
-    ORDER BY cities.id ASC;
+FROM states, cities WHERE cities.state_id = states.id
+ORDER BY cities.id ASC;

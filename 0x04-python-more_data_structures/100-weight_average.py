@@ -1,16 +1,11 @@
 #!/usr/bin/python3
 def weight_average(my_list=[]):
-    '''
-    Computes the weighted average of all integers tuple (<score>, <weight>)
-
-    Parameters:
-    my_list (list): A list of 2-tuples in the form (<score>, <weight>)
-
-    Returns:
-    The weigthed average
-    '''
-    if (not isinstance(my_list, list)) or len(my_list) == 0:
+    """Return the weighted average of all integers in a list of tuples."""
+    if not my_list:
         return 0
-    dx = sum(map(lambda item: item[0] * item[1], my_list))
-    dy = sum(map(lambda item: item[1], my_list))
-    return dx / dy
+    average = 0
+    weight = 0
+    for tup in my_list:
+        average += tup[0] * tup[1]
+        weight += tup[1]
+    return float(average / weight)

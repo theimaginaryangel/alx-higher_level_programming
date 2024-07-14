@@ -1,21 +1,15 @@
 #!/usr/bin/python3
 def safe_print_list(my_list=[], x=0):
-    '''
-    Prints the elements of a list
+    ret = 0
 
-    Parameters:
-    my_list (list): The list containing the elements to be printed
-    x (int): The number of elements to print
+    try:
+        for i in my_list:
+            if ret < x:
+                print('{}'.format(my_list[ret]), end='')
+                ret += 1
 
-    Returns:
-    The actual number of elements printed
-    '''
-    n = 0
-    for i in range(x):
-        try:
-            print("{}".format(my_list[i]), end="")
-            n += 1
-        except Exception:
-            break
-    print("")
-    return n
+        print()
+    except TypeError:
+        pass
+    finally:
+        return ret

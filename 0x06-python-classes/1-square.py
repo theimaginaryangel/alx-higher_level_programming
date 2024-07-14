@@ -1,16 +1,14 @@
 #!/usr/bin/python3
-"""A module for working with squares.
-"""
+
+"""Define a class Square."""
 
 
 class Square:
-    """Represents a 2D Polygon with 4 equal and perpendicular sides.
-    """
-    def __init__(self, size):
-        """Initializes a Square with a given size.
+    """Represent a square."""
 
+    def __init__(self, size):
+        """Initialize a new Square.
         Args:
-            size (int): The size of the square.
+            size (int): The size of the new square.
         """
-        super().__init__()
         self.__size = size

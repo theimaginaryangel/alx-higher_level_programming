@@ -1,23 +1,24 @@
 #!/usr/bin/python3
-"""Contains classes for working with Polygons.
-"""
-import os
-import re
-from random import randint
-from json import JSONDecoder, JSONEncoder
-from turtle import Pen
+
+"""Defines a base model class."""
+import json
+import csv
+import turtle
 
 
 class Base:
-    """Represents the base class for all polygon objects.
+    """Base model.
+    This Represents the "base" for all other classes in project 0x0C*.
+    Private Class Attributes:
+        __nb_object (int): Number of instantiated Bases.
     """
+
     __nb_objects = 0
 
     def __init__(self, id=None):
-        """Initializes a new polygon object with the given id.
-
+        """Initialize a new Base.
         Args:
-            id (int): The id of this polygon object.
+            id (int): The identity of the new Base.
         """
         if id is not None:
             self.id = id
@@ -27,206 +28,148 @@ class Base:
 
     @staticmethod
     def to_json_string(list_dictionaries):
-        """Creates the JSON representation of a list of dictionaries.
-
+        """Return the JSON serialization of a list of dicts.
         Args:
             list_dictionaries (list): A list of dictionaries.
-
-        Returns:
-            str: A JSON representation of the list of dictionaries.
         """
-        if list_dictionaries is None:
+        if list_dictionaries is None or list_dictionaries == []:
             return "[]"
-        return JSONEncoder().encode(list_dictionaries)
+        return json.dumps(list_dictionaries)
 
     @classmethod
     def save_to_file(cls, list_objs):
-        """Saves a list of polygons to a file in JSON format.
-
+        """Write the JSON serialization of a list of objects to a file.
         Args:
-            list_objs (list): A list of polygons.
+            list_objs (list): A list of inherited Base instances.
         """
-        file_name = '{}.json'.format(cls.__name__)
-        dict_list = []
-        if list_objs is not None:
-            for obj in list_objs:
-                if type(obj) is cls:
-                    dict_list.append(obj.to_dictionary())
-        with open(file_name, mode='w', encoding='utf-8') as file:
-            file.write(Base.to_json_string(dict_list))
+        filename = cls.__name__ + ".json"
+        with open(filename, "w") as jsonfile:
+            if list_objs is None:
+                jsonfile.write("[]")
+            else:
+                list_dicts = [o.to_dictionary() for o in list_objs]
+                jsonfile.write(Base.to_json_string(list_dicts))
 
     @staticmethod
     def from_json_string(json_string):
-        """Creates a list from its JSON representation.
-
+        """Return the deserialization of a JSON string.
         Args:
-            json_string (str): A JSON string representation of a list.
-
+            json_string (str): A JSON str representation of a list of dicts.
         Returns:
-            list: A JSON representation of the list of dictionaries.
+            If json_string is None or empty - an empty list.
+            Otherwise - the Python list represented by json_string.
         """
-        if (json_string is None) or (len(json_string.strip()) == 0):
+        if json_string is None or json_string == "[]":
             return []
-        else:
-            return JSONDecoder().decode(json_string)
+        return json.loads(json_string)
 
     @classmethod
     def create(cls, **dictionary):
-        """Creates a polygon with the given attributes.
-
+        """Return a class instantied from a dictionary of attributes.
         Args:
-            dictionary (dict): A dictionary of the object's attributes.
-
-        Returns:
-            Base: A polygon object with the given attributes.
+            **dictionary (dict): Key/value pairs of attributes to initialize.
         """
-        polygons = {
-            'Rectangle': (1, 1, 0, 0, None),
-            'Square': (1, 0, 0, None),
-        }
-        if cls.__name__ in polygons.keys():
-            polygon = cls(*polygons[cls.__name__])
-            polygon.update(**dictionary)
-            return polygon
+        if dictionary and dictionary != {}:
+            if cls.__name__ == "Rectangle":
+                new = cls(1, 1)
+            else:
+                new = cls(1)
+            new.update(**dictionary)
+            return new
 
     @classmethod
     def load_from_file(cls):
-        """Loads a list of polygons from a file in JSON format.
-
+        """Return a list of classes instantiated from a file of JSON strings.
+        Reads from `<cls.__name__>.json`.
         Returns:
-            list: A list of polygons.
+            If the file does not exist - an empty list.
+            Otherwise - a list of instantiated classes.
         """
-        file_name = '{}.json'.format(cls.__name__)
-        lines = []
-        if os.path.isfile(file_name):
-            with open(file_name, mode='r') as file:
-                for line in file.readlines():
-                    lines.append(line)
-        txt = ''.join(lines)
-        attr_dicts = cls.from_json_string(txt)
-        cls_list = list(map(lambda x: cls.create(**x), attr_dicts))
-        return cls_list
+        filename = str(cls.__name__) + ".json"
+        try:
+            with open(filename, "r") as jsonfile:
+                list_dicts = Base.from_json_string(jsonfile.read())
+                return [cls.create(**d) for d in list_dicts]
+        except IOError:
+            return []
 
     @classmethod
     def save_to_file_csv(cls, list_objs):
-        """Saves a list of polygons to a file in CSV format.
-
+        """Write the CSV serialization of a list of objects to a file.
         Args:
-            list_objs (list): A list of polygons.
+            list_objs (list): A list of inherited Base instances.
         """
-        file_name = '{}.csv'.format(cls.__name__)
-        poly_fmt_fxns = {
-            'Rectangle': lambda x: '{},{:d},{:d},{:d},{:d}'.format(
-                x.id, x.width, x.height, x.x, x.y),
-            'Square': lambda x: '{},{:d},{:d},{:d}'.format(
-                x.id, x.size, x.x, x.y),
-        }
-        vals_list = []
-        if list_objs is not None:
-            poly_name = cls.__name__
-            for obj in list_objs:
-                if (type(obj) is cls) and (poly_name in poly_fmt_fxns):
-                    vals_list.append('{}\n'.format(
-                        poly_fmt_fxns[poly_name](obj)))
-        with open(file_name, mode='w', encoding='utf-8') as file:
-            file.writelines(vals_list)
+        filename = cls.__name__ + ".csv"
+        with open(filename, "w", newline="") as csvfile:
+            if list_objs is None or list_objs == []:
+                csvfile.write("[]")
+            else:
+                if cls.__name__ == "Rectangle":
+                    fieldnames = ["id", "width", "height", "x", "y"]
+                else:
+                    fieldnames = ["id", "size", "x", "y"]
+                writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+                for obj in list_objs:
+                    writer.writerow(obj.to_dictionary())
 
     @classmethod
     def load_from_file_csv(cls):
-        """Loads a list of polygons from a file in CSV format.
-
+        """Return a list of classes instantiated from a CSV file.
+        Reads from `<cls.__name__>.csv`.
         Returns:
-            list: A list of polygons.
+            If the file does not exist - an empty list.
+            Otherwise - a list of instantiated classes.
         """
-        poly_name = cls.__name__
-        file_name = '{}.csv'.format(poly_name)
-        poly_fmt_fxns = {
-            'Rectangle': lambda x: {
-                'id': int(x[0]),
-                'width': int(x[1]),
-                'height': int(x[2]),
-                'x': int(x[3]),
-                'y': int(x[4]),
-            },
-            'Square': lambda x: {
-                'id': int(x[0]),
-                'size': int(x[1]),
-                'x': int(x[2]),
-                'y': int(x[3]),
-            },
-        }
-        poly_fmt = {
-            'Rectangle': r'\s*[^,]+,[^,]+,[^,]+,[^,]+,[^,]+',
-            'Square': r'\s*[^,]+,[^,]+,[^,]+,[^,]+',
-        }
-        lines = []
-        attr_dicts = []
-        if os.path.isfile(file_name):
-            with open(file_name, mode='r') as file:
-                for line in file.readlines():
-                    attrs_match = re.match(poly_fmt[poly_name], line)
-                    if attrs_match is not None:
-                        cols = line.strip().split(',')
-                        attr_dicts.append(poly_fmt_fxns[poly_name](cols))
-        cls_list = list(map(lambda x: cls.create(**x), attr_dicts))
-        return cls_list
+        filename = cls.__name__ + ".csv"
+        try:
+            with open(filename, "r", newline="") as csvfile:
+                if cls.__name__ == "Rectangle":
+                    fieldnames = ["id", "width", "height", "x", "y"]
+                else:
+                    fieldnames = ["id", "size", "x", "y"]
+                list_dicts = csv.DictReader(csvfile, fieldnames=fieldnames)
+                list_dicts = [dict([k, int(v)] for k, v in d.items())
+                              for d in list_dicts]
+                return [cls.create(**d) for d in list_dicts]
+        except IOError:
+            return []
 
     @staticmethod
     def draw(list_rectangles, list_squares):
-        """Draws the polygons in each list using Turtle graphics.
-
+        """Draw Rectangles and Squares using the turtle module.
         Args:
-            list_rectangles (list): A list of Rectangle objects.
-            list_squares (list): A list of Square objects.
+            list_rectangles (list): A list of Rectangle objects to draw.
+            list_squares (list): A list of Square objects to draw.
         """
-        poly_list = []
-        funcs = {
-            'hex_to_rgb': lambda x: (x >> 16, (x >> 8) % 0xff, x % 0xff)
-        }
-        pen = Pen()
-        screen = pen.getscreen()
-        poly_list.extend(list_rectangles)
-        poly_list.extend(list_squares)
-        wind_width = max(
-            [max(map(lambda x: x.width + x.x, poly_list)) + 4, 460.8])
-        wind_height = max(
-            [max(map(lambda x: x.height + x.y, poly_list)) + 4, 259.2])
-        screen.setup(width=wind_width, height=wind_height)
-        screen.setworldcoordinates(0, wind_height, wind_width, 0)
-        pen.speed('slowest')
-        pen.degrees()
-        pen.pensize(2)
-        pen.hideturtle()
-        for i in range(len(poly_list)):
-            rect = poly_list[i]
-            pen.up()
-            pen.forward(rect.x)
-            pen.right(90)
-            pen.backward(rect.y)
-            pen.showturtle()
-            pen.down()
-            pen.begin_poly()
-            pen.fillcolor(funcs['hex_to_rgb'](randint(0, 0xffffff)))
-            pen.pencolor(funcs['hex_to_rgb'](randint(0, 0xffffff)))
-            pen.begin_fill()
-            pen.backward(rect.height)
-            pen.left(90)
-            pen.forward(rect.width)
-            pen.left(90)
-            pen.backward(rect.height)
-            pen.left(90)
-            pen.forward(rect.width)
-            pen.end_fill()
-            pen.end_poly()
-            pen.up()
-            # move to start pos
-            pen.hideturtle()
-            pen.right(90)
-            pen.backward(rect.y)
-            pen.left(90)
-            pen.forward(rect.x)
-            pen.right(180)
-        while True:
-            c = input('Enter "q" to quit: ')
-            if c == 'q':
-                break
+        turt = turtle.Turtle()
+        turt.screen.bgcolor("#b7312c")
+        turt.pensize(3)
+        turt.shape("turtle")
+
+        turt.color("#ffffff")
+        for rect in list_rectangles:
+            turt.showturtle()
+            turt.up()
+            turt.goto(rect.x, rect.y)
+            turt.down()
+            for i in range(2):
+                turt.forward(rect.width)
+                turt.left(90)
+                turt.forward(rect.height)
+                turt.left(90)
+            turt.hideturtle()
+
+        turt.color("#b5e3d8")
+        for sq in list_squares:
+            turt.showturtle()
+            turt.up()
+            turt.goto(sq.x, sq.y)
+            turt.down()
+            for i in range(2):
+                turt.forward(sq.width)
+                turt.left(90)
+                turt.forward(sq.height)
+                turt.left(90)
+            turt.hideturtle()
+
+        turtle.exitonclick()

@@ -1,13 +1,7 @@
 #!/usr/bin/python3
 def complex_delete(a_dictionary, value):
-    '''
-    Deletes keys with a specific value in a dictionary
-
-    Parameters:
-    a_dictionary (dict): The dictionary to modify
-    '''
-    keys = set(a_dictionary.keys())
-    for key in keys:
+    """Delete keys with a specific value in a dictionary."""
+    for key in list(a_dictionary):
         if a_dictionary[key] == value:
-            a_dictionary.pop(key)
+            del a_dictionary[key]
     return a_dictionary

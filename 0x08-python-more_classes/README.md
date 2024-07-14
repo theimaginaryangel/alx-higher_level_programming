@@ -1,124 +1,104 @@
-# More Classes and Objects
+# 0x08. Python - More Classes and Objects
 
-This project contains some tasks for learning more about classes and objects in **Python**.
+![image](src/R.jfif)
 
-## Tasks To Complete
+In this project, I continued to practice object-oriented programming in Python.
+I learned about class methods, static methods, class vs instance attributes, and
+how to use the special `__str__` and `__repr__` methods.
 
-+ [x] 0\. Simple rectangle <br/>_**[0-rectangle.py](0-rectangle.py)**_  contains an empty class `Rectangle` that defines a rectangle.
-+ [x] 1\. Real definition of a rectangle <br/>_**[1-rectangle.py](1-rectangle.py)**_  contains a class `Rectangle` that defines a rectangle by: (based on [`0-rectangle.py`](0-rectangle.py)).
-  + Private instance attribute: `width`.
-     + Property `def width(self):` to retrieve it.
-     + Property setter `def width(self, value):` to set it (`width` must be an integer and greater than or equal to 0).
-  + Private instance attribute: `height`.
-     + Property `def height(self):` to retrieve it.
-     + Property setter `def height(self, value):` to set it (`height` must be an integer and greater than or equal to 0).
-  + Instantiation with optional `width` and `height`: `def __init__(self, width=0, height=0):`.
-+ [x] 2\. Area and Perimeter <br/>_**[2-rectangle.py](2-rectangle.py)**_  contains a class `Rectangle` that defines a rectangle by: (based on [`1-rectangle.py`](1-rectangle.py)).
-  + Private instance attribute: `width`.
-     + Property `def width(self):` to retrieve it.
-     + Property setter `def width(self, value):` to set it (`width` must be an integer and greater than or equal to 0).
-  + Private instance attribute: `height`.
-     + Property `def height(self):` to retrieve it.
-     + Property setter `def height(self, value):` to set it (`height` must be an integer and greater than or equal to 0).
-  + Instantiation with optional `width` and `height`: `def __init__(self, width=0, height=0):`.
-  + Public instance method: `def area(self):` that returns the rectangle area.
-  + Public instance method: `def perimeter(self):` that returns the rectangle perimeter.
-+ [x] 3\. String representation <br/>_**[3-rectangle.py](3-rectangle.py)**_  contains a class `Rectangle` that defines a rectangle by: (based on [`2-rectangle.py`](2-rectangle.py)).
-  + Private instance attribute: `width`.
-     + Property `def width(self):` to retrieve it.
-     + Property setter `def width(self, value):` to set it (`width` must be an integer and greater than or equal to 0).
-  + Private instance attribute: `height`.
-     + Property `def height(self):` to retrieve it.
-     + Property setter `def height(self, value):` to set it (`height` must be an integer and greater than or equal to 0).
-  + Instantiation with optional `width` and `height`: `def __init__(self, width=0, height=0):`.
-  + Public instance method: `def area(self):` that returns the rectangle area.
-  + Public instance method: `def perimeter(self):` that returns the rectangle perimeter.
-  + `print()` and `str()` should print the rectangle with the character `#`. (if `width` or `height` is equal to 0, return an empty string).
-+ [x] 4\. Eval is magic <br/>_**[4-rectangle.py](4-rectangle.py)**_  contains a class `Rectangle` that defines a rectangle by: (based on [`3-rectangle.py`](3-rectangle.py)).
-  + Private instance attribute: `width`.
-     + Property `def width(self):` to retrieve it.
-     + Property setter `def width(self, value):` to set it (`width` must be an integer and greater than or equal to 0).
-  + Private instance attribute: `height`.
-     + Property `def height(self):` to retrieve it.
-     + Property setter `def height(self, value):` to set it (`height` must be an integer and greater than or equal to 0).
-  + Instantiation with optional `width` and `height`: `def __init__(self, width=0, height=0):`.
-  + Public instance method: `def area(self):` that returns the rectangle area.
-  + Public instance method: `def perimeter(self):` that returns the rectangle perimeter.
-  + `print()` and `str()` should print the rectangle with the character `#`. (if `width` or `height` is equal to 0, return an empty string).
-  + `repr()` should return a string representation of the rectangle to be able to recreate a new instance by using `eval()`.
-+ [x] 5\. Detect instance deletion <br/>_**[5-rectangle.py](5-rectangle.py)**_  contains a class `Rectangle` that defines a rectangle by: (based on [`4-rectangle.py`](4-rectangle.py)).
-  + Private instance attribute: `width`.
-     + Property `def width(self):` to retrieve it.
-     + Property setter `def width(self, value):` to set it (`width` must be an integer and greater than or equal to 0).
-  + Private instance attribute: `height`.
-     + Property `def height(self):` to retrieve it.
-     + Property setter `def height(self, value):` to set it (`height` must be an integer and greater than or equal to 0).
-  + Instantiation with optional `width` and `height`: `def __init__(self, width=0, height=0):`.
-  + Public instance method: `def area(self):` that returns the rectangle area.
-  + Public instance method: `def perimeter(self):` that returns the rectangle perimeter.
-  + `print()` and `str()` should print the rectangle with the character `#`. (if `width` or `height` is equal to 0, return an empty string).
-  + `repr()` should return a string representation of the rectangle to be able to recreate a new instance by using `eval()`.
-  + Print the message `Bye rectangle...` (`...` being 3 dots not ellipsis) when an instance of `Rectangle` is deleted.
-+ [x] 6\. How many instances <br/>_**[6-rectangle.py](6-rectangle.py)**_  contains a class `Rectangle` that defines a rectangle by: (based on [`5-rectangle.py`](5-rectangle.py)).
-  + Private instance attribute: `width`.
-     + Property `def width(self):` to retrieve it.
-     + Property setter `def width(self, value):` to set it (`width` must be an integer and greater than or equal to 0).
-  + Private instance attribute: `height`.
-     + Property `def height(self):` to retrieve it.
-     + Property setter `def height(self, value):` to set it (`height` must be an integer and greater than or equal to 0).
-  + Public class attribute `number_of_instances` that is initialized to `0`, incremented by 1 during each new instance instantiation, and decremented by 1 during each instance deletion.
-  + Instantiation with optional `width` and `height`: `def __init__(self, width=0, height=0):`.
-  + Public instance method: `def area(self):` that returns the rectangle area.
-  + Public instance method: `def perimeter(self):` that returns the rectangle perimeter.
-  + `print()` and `str()` should print the rectangle with the character `#`. (if `width` or `height` is equal to 0, return an empty string).
-  + `repr()` should return a string representation of the rectangle to be able to recreate a new instance by using `eval()`.
-  + Print the message `Bye rectangle...` (`...` being 3 dots not ellipsis) when an instance of `Rectangle` is deleted.
-+ [x] 7\. Change representation <br/>_**[7-rectangle.py](7-rectangle.py)**_  contains a class `Rectangle` that defines a rectangle by: (based on [`6-rectangle.py`](6-rectangle.py)).
-  + Private instance attribute: `width`.
-     + Property `def width(self):` to retrieve it.
-     + Property setter `def width(self, value):` to set it (`width` must be an integer and greater than or equal to 0).
-  + Private instance attribute: `height`.
-     + Property `def height(self):` to retrieve it.
-     + Property setter `def height(self, value):` to set it (`height` must be an integer and greater than or equal to 0).
-  + Public class attribute `number_of_instances` that is initialized to `0`, incremented by 1 during each new instance instantiation, and decremented by 1 during each instance deletion.
-  + Public class attribute `print_symbol` that is initialized to `#`, used as symbol for string representation and can be any type.
-  + Instantiation with optional `width` and `height`: `def __init__(self, width=0, height=0):`.
-  + Public instance method: `def area(self):` that returns the rectangle area.
-  + Public instance method: `def perimeter(self):` that returns the rectangle perimeter.
-  + `print()` and `str()` should print the rectangle with the character(s) stored in `print_symbol`. (if `width` or `height` is equal to 0, return an empty string).
-  + `repr()` should return a string representation of the rectangle to be able to recreate a new instance by using `eval()`.
-  + Print the message `Bye rectangle...` (`...` being 3 dots not ellipsis) when an instance of `Rectangle` is deleted.
-+ [x] 8\. Compare rectangles <br/>_**[8-rectangle.py](8-rectangle.py)**_  contains a class `Rectangle` that defines a rectangle by: (based on [`7-rectangle.py`](7-rectangle.py)).
-  + Private instance attribute: `width`.
-     + Property `def width(self):` to retrieve it.
-     + Property setter `def width(self, value):` to set it (`width` must be an integer and greater than or equal to 0).
-  + Private instance attribute: `height`.
-     + Property `def height(self):` to retrieve it.
-     + Property setter `def height(self, value):` to set it (`height` must be an integer and greater than or equal to 0).
-  + Public class attribute `number_of_instances` that is initialized to `0`, incremented by 1 during each new instance instantiation, and decremented by 1 during each instance deletion.
-  + Public class attribute `print_symbol` that is initialized to `#`, used as symbol for string representation and can be any type.
-  + Instantiation with optional `width` and `height`: `def __init__(self, width=0, height=0):`.
-  + Public instance method: `def area(self):` that returns the rectangle area.
-  + Public instance method: `def perimeter(self):` that returns the rectangle perimeter.
-  + `print()` and `str()` should print the rectangle with the character(s) stored in `print_symbol`. (if `width` or `height` is equal to 0, return an empty string).
-  + `repr()` should return a string representation of the rectangle to be able to recreate a new instance by using `eval()`.
-  + Print the message `Bye rectangle...` (`...` being 3 dots not ellipsis) when an instance of `Rectangle` is deleted.
-  + Static method `def bigger_or_equal(rect_1, rect_2):` that returns the biggest rectangle based on the area. Returns `rect_1` if both have the same area value.
-+ [x] 9\. A square is a rectangle <br/>_**[9-rectangle.py](9-rectangle.py)**_  contains a class `Rectangle` that defines a rectangle by: (based on [`8-rectangle.py`](8-rectangle.py)).
-  + Private instance attribute: `width`.
-     + Property `def width(self):` to retrieve it.
-     + Property setter `def width(self, value):` to set it (`width` must be an integer and greater than or equal to 0).
-  + Private instance attribute: `height`.
-     + Property `def height(self):` to retrieve it.
-     + Property setter `def height(self, value):` to set it (`height` must be an integer and greater than or equal to 0).
-  + Public class attribute `number_of_instances` that is initialized to `0`, incremented by 1 during each new instance instantiation, and decremented by 1 during each instance deletion.
-  + Public class attribute `print_symbol` that is initialized to `#`, used as symbol for string representation and can be any type.
-  + Instantiation with optional `width` and `height`: `def __init__(self, width=0, height=0):`.
-  + Public instance method: `def area(self):` that returns the rectangle area.
-  + Public instance method: `def perimeter(self):` that returns the rectangle perimeter.
-  + `print()` and `str()` should print the rectangle with the character(s) stored in `print_symbol`. (if `width` or `height` is equal to 0, return an empty string).
-  + `repr()` should return a string representation of the rectangle to be able to recreate a new instance by using `eval()`.
-  + Print the message `Bye rectangle...` (`...` being 3 dots not ellipsis) when an instance of `Rectangle` is deleted.
-  + Static method `def bigger_or_equal(rect_1, rect_2):` that returns the biggest rectangle based on the area. Returns `rect_1` if both have the same area value.
-  + Class method `def square(cls, size=0):` that returns a new Rectangle instance with `width == height == size`.
-+ [x] 10\. N queens <br/>_**[101-nqueens.py](101-nqueens.py)**_ contains a program that solves the N queens problem.
+## Tests :heavy_check_mark:
+
+* [tests](./tests): Folder of test files. Provided by Holberton School.
+
+## Tasks :page_with_curl:
+
+* **0. Simple rectangle**
+  * [0-rectangle.py](./0-rectangle.py): Empty Python class that defines a rectangle.
+
+* **1. Real definition of a rectangle**
+  * [1-rectangle.py](./1-rectangle.py): Python class that defines a rectangle. Builds on
+  [0-rectangle.py](./0-rectangle.py) with:
+    * Private instance attribute `width`.
+    * Property getter `def width(self):` to get `width`.
+    * Property setter `def width(self, value):` to set `width`.
+    * Private instance attribute `height`.
+    * Property getter `def height(self):` to get `height`.
+    * Property setter `def height(self, value):` to set `height`.
+    * Instantiation with optional `width` and `height`: `def __init(self,
+    width=0, height=0):`
+  * If either of `width` or `height` is not an integer, a `TypeError` is
+  raised with the message `width must be an integer` or `height must be an integer`.
+  * If either of `width` or `height` is less than `0`, a `ValueError` is
+  raised with the message `width must be >= 0` or `height must be >= 0`.
+
+* **2. Area and Perimeter**
+  * [2-rectangle.py](./2-rectangle.py): Python class that defines a rectangle. Builds on
+  [1-rectangle.py](./1-rectangle.py) with:
+    * Public instance method `def area(self):` that returns the area of
+    the rectangle.
+    * Public instance attribute `def perimeter(self):` that returns the
+    permiter of the rectangle (if either of `width` or `height` equals `0`, the
+    perimeter is `0`).
+
+* **3. String representation**
+  * [3-rectangle.py](./3-rectangle.py): Python class that defines a rectangle. Builds on
+  [2-rectangle.py](./2-rectangle.py) with:
+    * Special method `__str__` to print the rectangle with the `#` character
+    (if either of `width` or `height` equals `0`, the method returns an empty
+    string.).
+
+* **4. Eval is magic**
+  * [4-rectangle.py](./4-rectangle.py): Python class that defines a rectangle. Builds on
+  [3-rectangle.py](./3-rectangle.py) with:
+    * Special method `__repr__` to return a string representation of the
+    rectangle.
+
+* **5. Detect instance deletion**
+  * [5-rectangle.py](./5-rectangle.py): Python class that defines a rectangle. Builds on
+  [4-rectangle.py](./4-rectangle.py) with:
+    * Special method `__del__` that prints the message `Bye rectangle...`
+    when a `Rectangle` is deleted.
+
+* **6. How many instances**
+  * [6-rectangle.py](./6-rectangle.py): Python class that defines a rectangle. Builds on
+  [5-rectangle.py](./5-rectangle.py) with:
+    * Public class attribute `number_of_instances` that is initialized to `0`,
+    incremented for each new instantiation, and decremened for each instance deletion.
+
+* **7. Change representation**
+  * [7-rectangle.py](./7-rectangle.py): Python class that defines a rectangle. Builds on
+  [6-rectangle.py](./6-rectangle.py) with:
+    * Public class attribute `class_symbol` that is initialized to `#` but can
+    be any type - used as the symbol for string representation.
+
+* **8. Compare rectangles**
+  * [8-rectangle.py](./8-rectangle.py): Python class that defines a rectangle. Builds on
+  [7-rectangle.py](./7-rectangle.py) with:
+    * Static method `def bigger_or_equal(rect_1, rect_2):` that returns the
+    rectangle with the greater area (returns `rect_1` if both areas are equal).
+    * If either of `rect_1` or `rect_2` is not a `Rectangle` instance, a
+    `TypeError` is raised with the message `rect_1 must be an instance of
+    Rectangle` or `rect_2 must be an instance of Rectangle`.
+
+* **9. A square is a rectangle**
+  * [9-rectangle.py](./9-rectangle.py): Python class that defines a rectangle. Builds on
+  [8-rectangle.py](./8-rectangle.py) with:
+    * Class method `def square(cls, size=0):` that returns a new `Rectangle`
+    instance with `width == height == size`.
+
+* **10. N Queens**
+  * [101-nqueens.py](./101-nqueens.py): Python program that solves the [N queens puzzle](https://en.wikipedia.org/wiki/Eight_queens_puzzle).
+  * Usage: `./101-nqueens.py N`
+  * Determines all possible solutions for placing N non-attacking queens on an
+  NxN chessboard.
+  * Exactly two arguments must be provided. Otherwise, the program prints
+  `Usage: nqueens N` and exits with the status `1`.
+  * If the provided `N` is not an integer, the program prints `N must be a
+  number` and exits with the status `1`.
+  * If the provided `N` is less than `4`, the program prints `N must be at least
+  4` and exits with the status `1`.
+  * Solutions are printed one per line in the format `[[r, c], [r, c], [r, c],
+  [r, c]]` where `r` and `c` represent the row and column, respectively, where a
+  queen must be placed.
+
+  ![image](src/Judit-photo1_602x433.jpg.crdownload)

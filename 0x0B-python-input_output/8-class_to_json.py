@@ -1,16 +1,7 @@
 #!/usr/bin/python3
-'''A module containing IO functions.
-'''
+"""Defines a Python class-to-JSON function."""
 
 
 def class_to_json(obj):
-    '''Retrieves the dictionary description of an object.
-
-    Args:
-        obj (any): An object whose attributes are to be retrieved.
-
-    Returns:
-        dict: The attributes of the object, otherwise None.
-    '''
-    if '__dict__' in dir(obj):
-        return obj.__dict__
+    """Return the dictionary represntation of a simple data structure."""
+    return obj.__dict__

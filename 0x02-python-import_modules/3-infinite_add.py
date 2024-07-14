@@ -1,7 +1,10 @@
 #!/usr/bin/python3
+import sys
+
 if __name__ == '__main__':
-    import sys
-    argv_sum = 0
-    for arg in sys.argv[1:]:
-        argv_sum += int(arg)
-    print('{:d}'.format(argv_sum))
+    """Prints the argument list passed to the program"""
+
+    total = 0
+    for i in range(len(sys.argv) - 1):
+        total += int(sys.argv[i + 1])
+    print("{}".format(total))

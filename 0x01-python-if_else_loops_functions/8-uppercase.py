@@ -1,14 +1,10 @@
 #!/usr/bin/python3
 def uppercase(str):
-    '''
-    Prints a string, converting lowercase characters to uppercase
+    new_str = ""
+    for i in range(len(str)):
+        if (ord(str[i]) >= 97 and ord(str[i]) <= 122):
+            new_str += chr(ord(str[i]) - 32)
+            continue
+        new_str += str[i]
 
-    Parameters:
-    str (str): The string to print
-    '''
-    txt = ''.join(str) + '\n'
-    for i in range(len(txt)):
-        c = ord(txt[i])
-        is_lower = (c >= ord('a')) and (c <= ord('z'))
-        offset = (1 << 5) if is_lower else 0
-        print('{:c}'.format(c - offset), end='')
+    print('{0}'.format(new_str))
